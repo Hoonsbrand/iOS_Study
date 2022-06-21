@@ -23,6 +23,8 @@ struct CalculationLogic {
     private var leftParenthese = 0
     private var rightParenthese = 0
     
+    private var isDefaultCalculation = false
+    
     private var tempMemory = ""
     private var memory = ""
     private var count = 0
@@ -63,6 +65,11 @@ struct CalculationLogic {
             case "=":
                 isNewMethod = true
                 
+                if isDefaultCalculation {
+                    isDefaultCalculation = false
+                    return runCalculation(n)
+                }
+                
                 if !isBase {
                     return runLogCalculate(n)
                 }
@@ -91,7 +98,7 @@ struct CalculationLogic {
                     return parenthesesCalculation()
                 }
                 
-                return runCalculation(n)
+                return nil
                 
             //MARK: - case Factorial
             case "x!":
@@ -251,6 +258,7 @@ struct CalculationLogic {
                 
             //MARK: - default
             default:
+                isDefaultCalculation = true
                 if !isX {
                     let newResult = squaredCalculation(isOppositeSquared,n)
                     tempMemory += "\(String(newResult!))\(symbol)"

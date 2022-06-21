@@ -107,6 +107,10 @@ class CalculatorViewController: UIViewController {
         isFinishedTypingNumber = true
         isNewInput = true
         
+        if type(of: displayValue) != Double.self {
+            return
+        }
+        
         if sender.currentTitle == "C" || sender.currentTitle == "AC" {
             clearBtn.setTitle("AC", for: .normal)
             displayValue = 0.0
